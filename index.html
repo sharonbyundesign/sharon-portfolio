@@ -225,6 +225,19 @@
       inset: 0;
       z-index: 1;
     }
+    .case-card-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      transition: transform 0.4s;
+    }
+    .case-card:hover .case-card-img { transform: scale(1.03); }
+    /* Lighter particle dusting over real screenshots so detail stays legible */
+    .case-card-visual:has(.case-card-img)::after { opacity: 0.18; }
+    .case-card:hover .case-card-visual:has(.case-card-img)::after { opacity: 0.32; }
     /* Particle dusting — echoes the hero's stippled text */
     .case-card-visual::after {
       content: "";
@@ -709,34 +722,7 @@
           </div>
         </div>
         <div class="case-card-visual" style="direction: ltr;">
-          <!-- Journey funnel + celebration badge -->
-          <svg viewBox="0 0 560 480" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect class="vis-bg" width="560" height="480" fill="#E8E4DE"/>
-            <!-- Journey stages as horizontal bars narrowing = funnel feel -->
-            <g class="vis-el">
-              <!-- Stage labels -->
-              <text x="48" y="108" fill="#C4BAB2" font-family="Inter, sans-serif" font-size="9" font-weight="500" letter-spacing="0.08em">DISCOVERY</text>
-              <text x="48" y="168" fill="#C4BAB2" font-family="Inter, sans-serif" font-size="9" font-weight="500" letter-spacing="0.08em">PROGRESS</text>
-              <text x="48" y="228" fill="#C4BAB2" font-family="Inter, sans-serif" font-size="9" font-weight="500" letter-spacing="0.08em">SUBMIT</text>
-              <text x="48" y="288" fill="#C4BAB2" font-family="Inter, sans-serif" font-size="9" font-weight="500" letter-spacing="0.08em">CELEBRATE</text>
-              <text x="48" y="348" fill="#8C8075" font-family="Inter, sans-serif" font-size="9" font-weight="600" letter-spacing="0.08em">SHARE →</text>
-              <!-- Bars -->
-              <rect x="148" y="92" width="340" height="24" rx="2" fill="#C4BAB2" opacity="0.3"/>
-              <rect x="148" y="152" width="280" height="24" rx="2" fill="#C4BAB2" opacity="0.4"/>
-              <rect x="148" y="212" width="200" height="24" rx="2" fill="#8C8075" opacity="0.3"/>
-              <rect x="148" y="272" width="240" height="24" rx="2" fill="#8C8075" opacity="0.5"/>
-              <!-- SHARE bar accent, full -->
-              <rect x="148" y="332" width="340" height="24" rx="2" fill="#1A1A18" opacity="0.12"/>
-            </g>
-            <!-- Big +89% number -->
-            <text x="400" y="430" text-anchor="middle" fill="#1A1A18" font-family="Georgia, serif" font-size="72" font-weight="400" opacity="0.08" class="vis-el">+89%</text>
-            <!-- Badge octagon shape -->
-            <g transform="translate(390, 160)" class="vis-accent" opacity="0.55">
-              <polygon points="30,0 60,0 80,20 80,60 60,80 30,80 10,60 10,20" fill="none" stroke="#8C8075" stroke-width="2"/>
-              <polygon points="30,8 60,8 72,20 72,60 60,72 30,72 18,60 18,20" fill="#8C8075" opacity="0.12"/>
-              <text x="45" y="48" text-anchor="middle" fill="#8C8075" font-family="Georgia, serif" font-size="13" font-style="italic">cert</text>
-            </g>
-          </svg>
+          <img class="case-card-img" src="assets/case-studies/certifications-badges/certificate.png" alt="Skillshare class certificate alongside social posts celebrating course completion" />
         </div>
       </div>
 
@@ -759,33 +745,7 @@
           </div>
         </div>
         <div class="case-card-visual">
-          <!-- Two overlapping systems merging into one hub -->
-          <svg viewBox="0 0 560 480" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect class="vis-bg" width="560" height="480" fill="#E8E4DE"/>
-            <!-- Skillshare circle -->
-            <circle cx="200" cy="220" r="130" fill="none" stroke="#8C8075" stroke-width="1.5" opacity="0.35" class="vis-el"/>
-            <circle cx="200" cy="220" r="130" fill="#8C8075" opacity="0.06" class="vis-el"/>
-            <text x="148" y="200" text-anchor="middle" fill="#8C8075" font-family="Inter, sans-serif" font-size="10" font-weight="500" letter-spacing="0.06em" class="vis-el">SKILLSHARE</text>
-            <text x="148" y="218" text-anchor="middle" fill="#C4BAB2" font-family="Inter, sans-serif" font-size="9" class="vis-el">Courses</text>
-            <text x="148" y="234" text-anchor="middle" fill="#C4BAB2" font-family="Inter, sans-serif" font-size="9" class="vis-el">Community</text>
-            <text x="148" y="250" text-anchor="middle" fill="#C4BAB2" font-family="Inter, sans-serif" font-size="9" class="vis-el">Payments</text>
-            <!-- Superpeer circle -->
-            <circle cx="360" cy="220" r="130" fill="none" stroke="#8C8075" stroke-width="1.5" opacity="0.35" class="vis-el"/>
-            <circle cx="360" cy="220" r="130" fill="#8C8075" opacity="0.06" class="vis-el"/>
-            <text x="412" y="200" text-anchor="middle" fill="#8C8075" font-family="Inter, sans-serif" font-size="10" font-weight="500" letter-spacing="0.06em" class="vis-el">SUPERPEER</text>
-            <text x="412" y="218" text-anchor="middle" fill="#C4BAB2" font-family="Inter, sans-serif" font-size="9" class="vis-el">Marketplace</text>
-            <text x="412" y="234" text-anchor="middle" fill="#C4BAB2" font-family="Inter, sans-serif" font-size="9" class="vis-el">Live Sessions</text>
-            <text x="412" y="250" text-anchor="middle" fill="#C4BAB2" font-family="Inter, sans-serif" font-size="9" class="vis-el">Revenue</text>
-            <!-- Intersection Creator Hub -->
-            <ellipse cx="280" cy="220" rx="60" ry="100" fill="#1A1A18" opacity="0.08" class="vis-accent"/>
-            <ellipse cx="280" cy="220" rx="60" ry="100" fill="none" stroke="#1A1A18" stroke-width="1" opacity="0.2" class="vis-accent"/>
-            <text x="280" y="212" text-anchor="middle" fill="#1A1A18" font-family="Inter, sans-serif" font-size="10" font-weight="600" letter-spacing="0.06em" opacity="0.55" class="vis-accent">CREATOR</text>
-            <text x="280" y="228" text-anchor="middle" fill="#1A1A18" font-family="Inter, sans-serif" font-size="10" font-weight="600" letter-spacing="0.06em" opacity="0.55" class="vis-accent">HUB</text>
-            <!-- iframe label at bottom -->
-            <rect x="210" y="390" width="140" height="28" rx="2" fill="none" stroke="#C4BAB2" stroke-width="1" class="vis-el" opacity="0.6"/>
-            <text x="280" y="408" text-anchor="middle" fill="#8C8075" font-family="Inter, sans-serif" font-size="10" font-weight="500" letter-spacing="0.05em" class="vis-el" opacity="0.8">via iframe ↗</text>
-            <line x1="280" y1="320" x2="280" y2="390" stroke="#C4BAB2" stroke-width="1" stroke-dasharray="3 3" class="vis-el" opacity="0.5"/>
-          </svg>
+          <img class="case-card-img" src="assets/case-studies/creator-hub-integration/creator_hub.png" alt="Creator Hub design system mapping Superpeer and Skillshare into one digital-products experience" />
         </div>
       </div>
 
