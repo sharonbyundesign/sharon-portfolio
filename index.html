@@ -101,6 +101,15 @@
       margin-bottom:24px;
       opacity:0; transition:opacity 0.8s 0.1s;
     }
+    .hero-bio a {
+      color:var(--muted);
+      text-decoration:underline;
+      text-underline-offset:2px;
+      text-decoration-color:var(--rule);
+      pointer-events:auto;
+      transition:color 0.2s, text-decoration-color 0.2s;
+    }
+    .hero-bio a:hover { color:var(--ink); text-decoration-color:var(--ink); }
     .hero-cta {
       display:flex; gap:12px;
       opacity:0; transition:opacity 0.8s 0.2s;
@@ -111,8 +120,8 @@
     .hero-copy.visible .hero-cta { opacity:1; }
     .hero-copy.visible .hero-cta { pointer-events:all; }
     .scroll-hint {
-      position:absolute; bottom:36px; left:50%;
-      transform:translateX(-50%);
+      position:absolute; top:50%; left:50%;
+      transform:translate(-50%, -50%);
       font-size:10px; font-weight:500;
       letter-spacing:0.1em; text-transform:uppercase;
       color:var(--muted); text-align:center;
@@ -121,8 +130,8 @@
       animation:bob 2s ease-in-out infinite;
     }
     @keyframes bob {
-      0%,100%{transform:translateX(-50%) translateY(0)}
-      50%{transform:translateX(-50%) translateY(5px)}
+      0%,100%{transform:translate(-50%,-50%) translateY(0)}
+      50%{transform:translate(-50%,-50%) translateY(5px)}
     }
     .btn {
       display: inline-flex;
@@ -214,20 +223,26 @@
       height: 100%;
       position: absolute;
       inset: 0;
+      z-index: 1;
     }
-    .case-card:hover { background: var(--ink); }
-    .case-card:hover .case-card-visual { background: #232320; }
-
-    .case-card:hover .case-number,
-    .case-card:hover .case-company,
-    .case-card:hover .case-title,
-    .case-card:hover .case-tagline,
-    .case-card:hover .case-tags span,
-    .case-card:hover .case-arrow { color: var(--bg); }
-    .case-card:hover .case-tags span { border-color: rgba(240,237,232,0.25); }
-    .case-card:hover .case-card-visual svg .vis-bg { fill: #232320; }
-    .case-card:hover .case-card-visual svg .vis-el { opacity: 0.18; }
-    .case-card:hover .case-card-visual svg .vis-accent { opacity: 0.5; }
+    /* Particle dusting — echoes the hero's stippled text */
+    .case-card-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(140,128,117,0.30) 1px, transparent 1.4px);
+      background-size: 12px 12px;
+      opacity: 0.45;
+      transition: opacity 0.4s, background-size 0.4s;
+      z-index: 3;
+      pointer-events: none;
+    }
+    /* Subtle, light hover — warm tint instead of full inversion */
+    .case-card:hover { background: #EAE6E0; }
+    .case-card:hover .case-card-visual { background: #E3DED7; }
+    .case-card:hover .case-card-visual::after { opacity: 0.85; background-size: 10px 10px; }
+    .case-card:hover .case-title { color: var(--ink); }
+    .case-card:hover .case-arrow { color: var(--muted); }
 
     .case-card-top {}
     .case-card-bottom {}
@@ -582,7 +597,7 @@
         <div class="hero-gap"></div>
         <div class="hero-particle-spacer" id="heroSpacer"></div>
         <div class="hero-gap-bottom"></div>
-        <p class="hero-bio">Marketplace · Growth · Design Systems · Generative AI<br>Open to full-time & fractional roles</p>
+        <p class="hero-bio">Marketplace · Growth · Design Systems · Generative AI<br>Previously at <a href="https://www.blaze.ai" target="_blank" rel="noopener">Blaze AI</a> and <a href="https://www.skillshare.com" target="_blank" rel="noopener">Skillshare</a><br>Open to full-time & fractional roles · Remote</p>
         <div class="hero-cta">
           <a href="about.html" class="btn btn-secondary">About ↗</a>
           <a href="mailto:sharonbyun.design@gmail.com" class="btn btn-primary">Say hello</a>
@@ -621,7 +636,6 @@
           </div>
         </div>
         <div class="case-card-visual">
-          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900&q=80&auto=format&fit=crop" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.18;"/>
           <!-- State machine: nodes connected by arrows representing content states -->
           <svg viewBox="0 0 560 480" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect class="vis-bg" width="560" height="480" fill="#E8E4DE"/>
@@ -695,7 +709,6 @@
           </div>
         </div>
         <div class="case-card-visual" style="direction: ltr;">
-          <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=900&q=80&auto=format&fit=crop" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.15;"/>
           <!-- Journey funnel + celebration badge -->
           <svg viewBox="0 0 560 480" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect class="vis-bg" width="560" height="480" fill="#E8E4DE"/>
@@ -746,7 +759,6 @@
           </div>
         </div>
         <div class="case-card-visual">
-          <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=900&q=80&auto=format&fit=crop" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.15;"/>
           <!-- Two overlapping systems merging into one hub -->
           <svg viewBox="0 0 560 480" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect class="vis-bg" width="560" height="480" fill="#E8E4DE"/>
@@ -820,7 +832,7 @@
       const ctx = canvas.getContext('2d');
 
       const BG = '#F0EDE8';
-      const NPARTICLES = 5000;
+      const NPARTICLES = 9000;
       let W, H, particles, targets, ready = false, currentT = 0;
 
       function resize() {
@@ -850,8 +862,8 @@
         lines.forEach((l, i) => c.fillText(l, W/2, startY + i*lh));
         const data = c.getImageData(0, 0, off.width, off.height).data;
         const pts = [];
-        for(let y = 0; y < off.height; y += 2) {
-          for(let x = 0; x < off.width; x += 2) {
+        for(let y = 0; y < off.height; y += 1) {
+          for(let x = 0; x < off.width; x += 1) {
             if(data[(y*off.width+x)*4+3] > 60) pts.push({x: x/dpr, y: y/dpr});
           }
         }
