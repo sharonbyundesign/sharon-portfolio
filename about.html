@@ -153,7 +153,16 @@
       gap: 0 32px;
       padding-bottom: 64px;
       align-items: start;
+      scroll-margin-top: 100px;
     }
+    .timeline-title a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--rule);
+      transition: text-decoration-color 0.2s;
+    }
+    .timeline-title a:hover { text-decoration-color: var(--ink); }
     .timeline-item:last-child { padding-bottom: 0; }
     .timeline-year {
       font-size: 12px;
@@ -395,9 +404,9 @@
     <div class="about-hero-left">
       <p class="about-eyebrow">About</p>
       <h1 class="about-hero-headline">
-        I make complex<br>
-        things feel<br>
-        <em>inevitable.</em>
+        I move between the big question<br>
+        and the fine detail<br>
+        <em>without losing either.</em>
       </h1>
       <!-- Portrait placeholder -->
       <div style="margin-top:40px;width:180px;height:220px;overflow:hidden;border-radius:2px;border:1px solid var(--rule);">
@@ -406,9 +415,9 @@
     </div>
     <div class="about-hero-right">
       <div class="about-hero-intro">
-        <p>I'm a Senior Product Designer with a background that runs deeper than most a decade in print before I ever touched a product brief. Annual reports, luxury invitations, event materials. Work that had to be right, because you couldn't push an update after it went to press.</p>
-        <p>That foundation shaped how I think about product design: <strong>strategy and craft aren't separate phases</strong> they're the same conversation. I work best when I can hold both at once, moving between the big question and the fine detail without losing either.</p>
-        <p>I've shipped enterprise workflows, growth systems, and platform integrations across iOS and Web partnering closely with product and engineering to make experiences that feel <strong>clear, empathetic, and just a little bit delightful.</strong></p>
+        <p>I came to product design through print — a decade of annual reports, luxury invitations, and event materials. Work that had to be right because you couldn't push an update after it went to press.</p>
+        <p>That shaped something in me: I can't think about craft without thinking about strategy, and I can't think about strategy without eventually needing to see it made. I work best when I'm holding both at once.</p>
+        <p>These days that looks like enterprise workflows, growth systems, and platform integrations — across iOS and web, always close to product and engineering, trying to make things feel <strong>clear, empathetic, and just a little bit delightful.</strong></p>
       </div>
     </div>
   </section>
@@ -456,14 +465,14 @@
         </div>
       </div>
 
-      <div class="timeline-item">
+      <div class="timeline-item" id="skillshare">
         <div class="timeline-year">2021 – 2025</div>
         <div class="timeline-dot-col">
           <div class="timeline-dot"></div>
         </div>
         <div class="timeline-body">
           <p class="timeline-era">Chapter Three</p>
-          <h2 class="timeline-title">Senior Product Designer — Skillshare</h2>
+          <h2 class="timeline-title">Senior Product Designer — <a href="https://www.skillshare.com" target="_blank" rel="noopener">Skillshare</a></h2>
           <div class="timeline-desc">
             <p>Skillshare is where I grew up as a designer. I joined as an intern and worked my way to Senior Product Designer leading the pod — the kind of trajectory that only happens when the team around you is genuinely good.</p>
             <p>The collaboration was one of the best parts. I worked closely with people across product, engineering, design, legal, teacher support, customer support, and the brand studio. That breadth taught me how to communicate across very different contexts and still move work forward.</p>
@@ -473,14 +482,14 @@
         </div>
       </div>
 
-      <div class="timeline-item">
+      <div class="timeline-item" id="blaze">
         <div class="timeline-year">2025 – 2026</div>
         <div class="timeline-dot-col">
           <div class="timeline-dot"></div>
         </div>
         <div class="timeline-body">
           <p class="timeline-era">Chapter Four</p>
-          <h2 class="timeline-title">Senior Product Designer — Blaze AI</h2>
+          <h2 class="timeline-title">Senior Product Designer — <a href="https://www.blaze.ai" target="_blank" rel="noopener">Blaze AI</a></h2>
           <div class="timeline-desc">
             <p>Joined Blaze as the second designer at a Series A AI startup. I wanted to understand how a smaller team operates in a fast-moving AI environment, and to experiment with how design itself could work differently.</p>
             <p>I used AI across every stage of the design process, from early research to prototyping, gradually moving away from static files toward a more fluid, exploratory way of working. When I was curious about something, I dug in with AI, had direct conversations with the internal team who were the primary users of the enterprise product, and kept moving.</p>

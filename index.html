@@ -101,6 +101,15 @@
       margin-bottom:24px;
       opacity:0; transition:opacity 0.8s 0.1s;
     }
+    .hero-bio a {
+      color:var(--muted);
+      text-decoration:underline;
+      text-underline-offset:2px;
+      text-decoration-color:var(--rule);
+      pointer-events:auto;
+      transition:color 0.2s, text-decoration-color 0.2s;
+    }
+    .hero-bio a:hover { color:var(--ink); text-decoration-color:var(--ink); }
     .hero-cta {
       display:flex; gap:12px;
       opacity:0; transition:opacity 0.8s 0.2s;
@@ -588,7 +597,7 @@
         <div class="hero-gap"></div>
         <div class="hero-particle-spacer" id="heroSpacer"></div>
         <div class="hero-gap-bottom"></div>
-        <p class="hero-bio">Marketplace · Growth · Design Systems · Generative AI<br>Open to full-time & fractional roles</p>
+        <p class="hero-bio">Marketplace · Growth · Design Systems · Generative AI<br>Previously at <a href="https://www.blaze.ai" target="_blank" rel="noopener">Blaze AI</a> and <a href="https://www.skillshare.com" target="_blank" rel="noopener">Skillshare</a><br>Open to full-time & fractional roles · Remote</p>
         <div class="hero-cta">
           <a href="about.html" class="btn btn-secondary">About ↗</a>
           <a href="mailto:sharonbyun.design@gmail.com" class="btn btn-primary">Say hello</a>
