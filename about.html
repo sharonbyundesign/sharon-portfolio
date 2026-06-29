@@ -231,6 +231,24 @@
       padding: 8px 14px;
       font-style: italic;
     }
+    /* Text + image side by side within a timeline entry */
+    .timeline-split {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 36px;
+      align-items: start;
+      margin-top: 4px;
+    }
+    .timeline-figure {
+      overflow: hidden;
+      border-radius: 2px;
+      border: 1px solid var(--rule);
+    }
+    .timeline-figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
 
     /* PRINCIPLES */
     .principles-section {
@@ -374,6 +392,8 @@
       .timeline-section { padding: 60px 24px; }
       .timeline::before { left: 80px; }
       .timeline-item { grid-template-columns: 80px 24px 1fr; gap: 0 20px; }
+      .timeline-split { grid-template-columns: 1fr; gap: 24px; }
+      .timeline-figure { max-width: 320px; }
       .principles-section { padding: 60px 24px; }
       .principles-grid { grid-template-columns: 1fr; gap: 12px; }
       .facts-section { padding: 60px 24px; }
@@ -400,7 +420,6 @@
 
   <!-- HERO -->
   <section class="about-hero">
-    <img class="about-hero-img" src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1400&q=80&auto=format&fit=crop" alt="" aria-hidden="true" />
     <div class="about-hero-left">
       <p class="about-eyebrow">About</p>
       <h1 class="about-hero-headline">
@@ -408,9 +427,9 @@
         and the fine detail<br>
         <em>without losing either.</em>
       </h1>
-      <!-- Portrait placeholder -->
+      <!-- Portrait -->
       <div style="margin-top:40px;width:180px;height:220px;overflow:hidden;border-radius:2px;border:1px solid var(--rule);">
-        <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80&auto=format&fit=crop&face" alt="Sharon Byun portrait placeholder" style="width:100%;height:100%;object-fit:cover;filter:grayscale(20%);"/>
+        <img src="assets/about/sharon_byun_portrait.png" alt="Sharon Byun portrait" style="width:100%;height:100%;object-fit:cover;"/>
       </div>
     </div>
     <div class="about-hero-right">
@@ -453,14 +472,18 @@
         <div class="timeline-body">
           <p class="timeline-era">Chapter Two</p>
           <h2 class="timeline-title">MFA, Experience Design VCU Brandcenter</h2>
-          <div class="timeline-desc">
-            <p>After a decade of making things look right, I started asking whether the things I was making were actually working for the people using them. The more I explored UX, prototyping, and systems thinking, the clearer the decision became. I applied to graduate school.</p>
-            <p>I enrolled in VCU Brandcenter's intensive graduate program <strong>24 weeks pregnant</strong>. I became the first new mother in the program's history. In my second semester, COVID hit.</p>
-            <p>I finished anyway. What that period taught me about working under constraint, finding clarity in chaos, and moving forward without a map I use it every single day.</p>
-          </div>
-          <span class="timeline-note">"First new mom in the program's history. Second semester, COVID hit. Graduated anyway."</span>
-          <div style="margin-top:24px;width:100%;max-width:420px;height:220px;overflow:hidden;border-radius:2px;border:1px solid var(--rule);">
-            <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80&auto=format&fit=crop" alt="Graduate school placeholder" style="width:100%;height:100%;object-fit:cover;opacity:0.85;filter:grayscale(15%);"/>
+          <div class="timeline-split">
+            <div>
+              <div class="timeline-desc">
+                <p>After a decade of making things look right, I started asking whether the things I was making were actually working for the people using them. The more I explored UX, prototyping, and systems thinking, the clearer the decision became. I applied to graduate school.</p>
+                <p>I enrolled in VCU Brandcenter's intensive graduate program <strong>24 weeks pregnant</strong>. I became the first new mother in the program's history. In my second semester, COVID hit.</p>
+                <p>I finished anyway. What that period taught me about working under constraint, finding clarity in chaos, and moving forward without a map I use it every single day.</p>
+              </div>
+              <span class="timeline-note">"First new mom in the program's history. Second semester, COVID hit. Graduated anyway."</span>
+            </div>
+            <div class="timeline-figure">
+              <img src="assets/about/brandcenter_mom.png" alt="Brandcenter feature: Pregnancy, motherhood, and Brandcenter" />
+            </div>
           </div>
         </div>
       </div>
