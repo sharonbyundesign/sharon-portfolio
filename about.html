@@ -69,24 +69,25 @@
     .about-hero {
       padding: 160px 48px 100px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: end;
+      grid-template-columns: 0.85fr 1fr;
+      gap: 72px;
+      align-items: stretch;
       border-bottom: 1px solid var(--rule);
       position: relative;
       overflow: hidden;
     }
-    .about-hero-img {
-      position: absolute;
-      inset: 0;
+    .about-hero-portrait {
+      /* bleed to the left screen edge and down to the bottom stroke */
+      margin: 0 0 -100px -48px;
+      overflow: hidden;
+    }
+    .about-hero-portrait img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.06;
-      pointer-events: none;
+      object-position: 50% 28%;
+      display: block;
     }
-    .about-hero > *:not(.about-hero-img) { position: relative; z-index: 1; }
-    .about-hero-left {}
     .about-eyebrow {
       font-size: 12px;
       font-weight: 500;
@@ -108,13 +109,14 @@
       color: var(--muted);
     }
     .about-hero-right {
-      padding-bottom: 8px;
+      align-self: center;
     }
     .about-hero-intro {
       font-size: 17px;
       line-height: 1.75;
       color: var(--ink);
       font-weight: 400;
+      margin-top: 40px;
     }
     .about-hero-intro strong { font-weight: 500; }
     .about-hero-intro p + p { margin-top: 20px; }
@@ -389,6 +391,8 @@
       nav { padding: 20px 24px; }
       .nav-links { gap: 20px; }
       .about-hero { padding: 120px 24px 60px; grid-template-columns: 1fr; gap: 40px; }
+      .about-hero-portrait { margin: 0 -24px 0 -24px; height: 60vh; }
+      .about-hero-intro { margin-top: 28px; }
       .timeline-section { padding: 60px 24px; }
       .timeline::before { left: 80px; }
       .timeline-item { grid-template-columns: 80px 24px 1fr; gap: 0 20px; }
@@ -420,19 +424,17 @@
 
   <!-- HERO -->
   <section class="about-hero">
-    <div class="about-hero-left">
+    <!-- Portrait -->
+    <div class="about-hero-portrait">
+      <img src="assets/about/sharon_byun_portrait.jpg" alt="Sharon Byun portrait" />
+    </div>
+    <div class="about-hero-right">
       <p class="about-eyebrow">About</p>
       <h1 class="about-hero-headline">
         I move between the big question<br>
         and the fine detail<br>
         <em>without losing either.</em>
       </h1>
-      <!-- Portrait -->
-      <div style="margin-top:40px;width:180px;height:220px;overflow:hidden;border-radius:2px;border:1px solid var(--rule);">
-        <img src="assets/about/sharon_byun_portrait.jpg" alt="Sharon Byun portrait" style="width:100%;height:100%;object-fit:cover;"/>
-      </div>
-    </div>
-    <div class="about-hero-right">
       <div class="about-hero-intro">
         <p>I came to product design through print — a decade of annual reports, luxury invitations, and event materials. Work that had to be right because you couldn't push an update after it went to press.</p>
         <p>That shaped something in me: I can't think about craft without thinking about strategy, and I can't think about strategy without eventually needing to see it made. I work best when I'm holding both at once.</p>
