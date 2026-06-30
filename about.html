@@ -242,18 +242,8 @@
     }
     .chapter-desc strong { color: var(--ink); font-weight: 500; }
     .chapter-desc p + p { margin-top: 14px; }
-    .chapter-note {
-      display: inline-block;
-      margin-top: 20px;
-      font-size: 13px;
-      color: var(--muted);
-      border: 1px solid var(--rule);
-      border-radius: 2px;
-      padding: 8px 14px;
-      font-style: italic;
-    }
 
-    /* Visual side: styled chapter plate (placeholder) or real photo */
+    /* Visual side: styled chapter plate */
     .chapter-plate {
       position: relative;
       aspect-ratio: 5 / 4;
@@ -292,12 +282,6 @@
       color: var(--ink);
     }
     .cp-role { font-size: 13px; color: var(--muted); margin-top: 8px; }
-    .chapter-photo {
-      overflow: hidden;
-      border-radius: 2px;
-      border: 1px solid var(--rule);
-    }
-    .chapter-photo img { display: block; width: 100%; height: auto; }
 
     /* PRINCIPLES */
     .principles-section {
@@ -536,9 +520,13 @@
 
       <article class="chapter reverse" id="chapter-2">
         <div class="chapter-visual">
-          <figure class="chapter-photo">
-            <img src="assets/about/brandcenter_mom.png" alt="Brandcenter feature: Pregnancy, motherhood, and Brandcenter" />
-          </figure>
+          <div class="chapter-plate">
+            <span class="cp-tag">Chapter 02</span>
+            <div>
+              <div class="cp-year">2019–2021</div>
+              <p class="cp-role">MFA, Experience Design · VCU Brandcenter</p>
+            </div>
+          </div>
         </div>
         <div class="chapter-text">
           <p class="chapter-era">Chapter Two</p>
@@ -548,7 +536,6 @@
             <p>I enrolled in VCU Brandcenter's intensive graduate program <strong>24 weeks pregnant</strong>. I became the first new mother in the program's history. In my second semester, COVID hit.</p>
             <p>I finished anyway. What that period taught me about working under constraint, finding clarity in chaos, and moving forward without a map I use it every single day.</p>
           </div>
-          <span class="chapter-note">"First new mom in the program's history. Second semester, COVID hit. Graduated anyway."</span>
         </div>
       </article>
 
