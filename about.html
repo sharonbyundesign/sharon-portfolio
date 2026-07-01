@@ -243,45 +243,7 @@
     .chapter-desc strong { color: var(--ink); font-weight: 500; }
     .chapter-desc p + p { margin-top: 14px; }
 
-    /* Visual side: styled chapter plate */
-    .chapter-plate {
-      position: relative;
-      aspect-ratio: 5 / 4;
-      border: 1px solid var(--rule);
-      border-radius: 2px;
-      background: #EAE6E0;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 36px;
-    }
-    .chapter-plate::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(var(--rule) 1.1px, transparent 1.2px);
-      background-size: 16px 16px;
-      opacity: 0.4;
-      pointer-events: none;
-    }
-    .chapter-plate > * { position: relative; z-index: 1; }
-    .cp-tag {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .cp-year {
-      font-family: var(--serif);
-      font-weight: 400;
-      font-size: clamp(40px, 5.5vw, 72px);
-      line-height: 0.95;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-    }
-    .cp-role { font-size: 13px; color: var(--muted); margin-top: 8px; }
+    /* Visual side: chapter photo */
     .chapter-img {
       display: block;
       width: 100%;
@@ -461,7 +423,6 @@
           <li><a href="#chapter-2"><span class="tbn-year">2019–21</span><span class="tbn-name">Brandcenter</span></a></li>
           <li><a href="#chapter-3"><span class="tbn-year">2021–25</span><span class="tbn-name">Skillshare</span></a></li>
           <li><a href="#chapter-4"><span class="tbn-year">2025–26</span><span class="tbn-name">Blaze AI</span></a></li>
-          <li><a href="#chapter-5"><span class="tbn-year">Now</span><span class="tbn-name">What's Next</span></a></li>
         </ol>
       </div>
     </nav>
@@ -524,26 +485,6 @@
             <p>Joined Blaze as the second designer at a Series A AI startup. I wanted to understand how a smaller team operates in a fast-moving AI environment, and to experiment with how design itself could work differently.</p>
             <p>I used AI across every stage of the design process, from early research to prototyping, gradually moving away from static files toward a more fluid, exploratory way of working. When I was curious about something, I dug in with AI, had direct conversations with the internal team who were the primary users of the enterprise product, and kept moving.</p>
             <p>Worked across growth projects including pricing tiers, freemium flows, and credits. Established the iOS design system. Led the enterprise approval workflow, a feature that had to hold together everything the company was simultaneously experimenting with.</p>
-          </div>
-        </div>
-      </article>
-
-      <article class="chapter" id="chapter-5">
-        <div class="chapter-visual">
-          <div class="chapter-plate">
-            <span class="cp-tag">What's Next</span>
-            <div>
-              <div class="cp-year">Now</div>
-              <p class="cp-role">Looking for the right fit</p>
-            </div>
-          </div>
-        </div>
-        <div class="chapter-text">
-          <p class="chapter-era">What's Next</p>
-          <h2 class="chapter-title">Looking for the right fit</h2>
-          <div class="chapter-desc">
-            <p>I'm looking for a team where design is treated as a <strong>strategic partner</strong>, not a delivery service. Where research is part of the process, the manager understands design, and the feedback culture is honest without being chaotic.</p>
-            <p>Open to full-time and fractional roles. Based in Richmond, VA available for EST-compatible remote work.</p>
           </div>
         </div>
       </article>
