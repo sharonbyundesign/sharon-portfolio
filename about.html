@@ -136,122 +136,121 @@
       color: var(--muted);
       margin-bottom: 64px;
     }
-    .timeline {
+
+    /* Sticky horizontal chapter bar */
+    .timeline-bar {
+      position: sticky;
+      top: 76px; /* tuck just under the 78px fixed nav, no visible gap */
+      z-index: 50;
+      margin: 0 -48px 24px;
+      padding: 0 48px;
+      background: var(--bg);
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .timeline-bar-inner {
+      display: flex;
+      align-items: stretch;
+      gap: 24px;
+      height: 56px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .timeline-bar-inner::-webkit-scrollbar { display: none; }
+    .timeline-bar-heading {
+      flex-shrink: 0;
+      align-self: center;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .timeline-bar-track {
+      display: flex;
+      align-items: stretch;
+      list-style: none;
+      gap: 2px;
+    }
+    .timeline-bar-track li { flex-shrink: 0; display: flex; }
+    .timeline-bar-track a {
       display: flex;
       flex-direction: column;
-      gap: 0;
-      position: relative;
+      justify-content: center;
+      gap: 1px;
+      padding: 0 16px;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: background 0.2s, border-color 0.2s;
+      white-space: nowrap;
     }
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 120px;
-      top: 8px;
-      bottom: 8px;
-      width: 1px;
-      background: var(--rule);
-    }
-    .timeline-item {
+    .timeline-bar-track a:hover { background: #EAE6E0; }
+    .tbn-year { font-size: 10px; letter-spacing: 0.04em; color: var(--muted); }
+    .tbn-name { font-size: 13px; font-weight: 500; color: var(--muted); }
+    .timeline-bar-track a.active { border-bottom-color: var(--ink); }
+    .timeline-bar-track a.active .tbn-name { color: var(--ink); }
+    .timeline-bar-track a.active .tbn-year { color: var(--ink); }
+
+    /* Chapters — hero-style split, alternating sides */
+    .timeline-chapters { display: flex; flex-direction: column; }
+    .chapter {
       display: grid;
-      grid-template-columns: 120px 32px 1fr;
-      gap: 0 32px;
-      padding-bottom: 64px;
-      align-items: start;
-      scroll-margin-top: 100px;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+      padding: 80px 0;
+      border-bottom: 1px solid var(--rule);
+      scroll-margin-top: 150px; /* clear nav + sticky bar */
     }
-    .timeline-title a {
+    .chapter:first-child { padding-top: 40px; }
+    .chapter:last-child { border-bottom: none; padding-bottom: 24px; }
+    .chapter.reverse .chapter-visual { order: 2; }
+    .chapter.reverse .chapter-text { order: 1; }
+
+    .chapter-era {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .chapter-title {
+      font-family: var(--serif);
+      font-weight: 400;
+      font-size: clamp(28px, 3.4vw, 44px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 20px;
+    }
+    .chapter-title a {
       color: inherit;
       text-decoration: underline;
       text-underline-offset: 3px;
       text-decoration-color: var(--rule);
       transition: text-decoration-color 0.2s;
     }
-    .timeline-title a:hover { text-decoration-color: var(--ink); }
-    .timeline-item:last-child { padding-bottom: 0; }
-    .timeline-year {
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      color: var(--muted);
-      padding-top: 4px;
-      text-align: right;
-    }
-    .timeline-dot-col {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 6px;
-      position: relative;
-    }
-    .timeline-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--rule);
-      border: 2px solid var(--bg);
-      flex-shrink: 0;
-      position: relative;
-      z-index: 1;
-    }
-    .timeline-dot.active {
-      background: var(--ink);
-      width: 12px;
-      height: 12px;
-    }
-    .timeline-body {}
-    .timeline-era {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 8px;
-    }
-    .timeline-title {
-      font-family: var(--serif);
-      font-weight: 400;
-      font-size: clamp(22px, 2.5vw, 30px);
-      line-height: 1.15;
-      letter-spacing: -0.01em;
-      color: var(--ink);
-      margin-bottom: 16px;
-    }
-    .timeline-desc {
+    .chapter-title a:hover { text-decoration-color: var(--ink); }
+    .chapter-desc {
       font-size: 15px;
       line-height: 1.75;
       color: var(--muted);
       font-weight: 400;
-      max-width: 520px;
+      max-width: 540px;
     }
-    .timeline-desc strong { color: var(--ink); font-weight: 500; }
-    .timeline-desc p + p { margin-top: 14px; }
-    .timeline-note {
-      display: inline-block;
-      margin-top: 16px;
-      font-size: 13px;
-      color: var(--muted);
-      border: 1px solid var(--rule);
-      border-radius: 2px;
-      padding: 8px 14px;
-      font-style: italic;
-    }
-    /* Text + image side by side within a timeline entry */
-    .timeline-split {
-      display: grid;
-      grid-template-columns: 1fr 320px;
-      gap: 36px;
-      align-items: start;
-      margin-top: 4px;
-    }
-    .timeline-figure {
-      overflow: hidden;
-      border-radius: 2px;
-      border: 1px solid var(--rule);
-    }
-    .timeline-figure img {
+    .chapter-desc strong { color: var(--ink); font-weight: 500; }
+    .chapter-desc p + p { margin-top: 14px; }
+
+    /* Visual side: chapter photo */
+    .chapter-img {
       display: block;
       width: 100%;
-      height: auto;
+      aspect-ratio: 5 / 4;
+      object-fit: cover;
+      border: 1px solid var(--rule);
+      border-radius: 2px;
     }
 
     /* PRINCIPLES */
@@ -293,42 +292,6 @@
       line-height: 1.7;
       font-weight: 400;
     }
-
-    /* FUN FACTS */
-    .facts-section {
-      background: var(--dark);
-      padding: 100px 48px;
-    }
-    .facts-label {
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--dark-muted);
-      margin-bottom: 64px;
-    }
-    .facts-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 48px 80px;
-    }
-    .fact-item {}
-    .fact-number {
-      font-family: var(--serif);
-      font-weight: 400;
-      font-size: 48px;
-      color: var(--bg);
-      opacity: 0.12;
-      line-height: 1;
-      margin-bottom: -12px;
-    }
-    .fact-body {
-      font-size: 16px;
-      color: var(--dark-muted);
-      line-height: 1.7;
-      font-weight: 400;
-    }
-    .fact-body strong { color: var(--bg); font-weight: 500; }
 
     /* CONTACT STRIP */
     .contact-strip {
@@ -396,14 +359,16 @@
       .about-hero-portrait { margin: 0 -24px 0 -24px; height: 60vh; }
       .about-hero-intro { margin-top: 28px; }
       .timeline-section { padding: 60px 24px; }
-      .timeline::before { left: 80px; }
-      .timeline-item { grid-template-columns: 80px 24px 1fr; gap: 0 20px; }
-      .timeline-split { grid-template-columns: 1fr; gap: 24px; }
-      .timeline-figure { max-width: 320px; }
+      .timeline-bar { top: 60px; margin: 0 -24px 16px; padding: 0 24px; }
+      .timeline-bar-inner { height: 52px; gap: 16px; }
+      .chapter { grid-template-columns: 1fr; gap: 28px; padding: 48px 0; scroll-margin-top: 120px; }
+      .chapter:first-child { padding-top: 24px; }
+      .chapter.reverse .chapter-visual,
+      .chapter .chapter-visual { order: 0; }
+      .chapter.reverse .chapter-text,
+      .chapter .chapter-text { order: 1; }
       .principles-section { padding: 60px 24px; }
       .principles-grid { grid-template-columns: 1fr; gap: 12px; }
-      .facts-section { padding: 60px 24px; }
-      .facts-grid { grid-template-columns: 1fr; gap: 40px; }
       .contact-strip { padding: 60px 24px; flex-direction: column; align-items: flex-start; gap: 32px; }
       footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
     }
@@ -428,7 +393,7 @@
   <section class="about-hero">
     <!-- Portrait -->
     <div class="about-hero-portrait">
-      <img src="assets/about/sharon_byun_match2.jpg" alt="Sharon Byun portrait" />
+      <img src="assets/about/portrait.jpg" alt="Sharon Byun portrait" />
     </div>
     <div class="about-hero-right">
       <p class="about-eyebrow">About</p>
@@ -446,99 +411,83 @@
   </section>
 
   <!-- TIMELINE -->
-  <section class="timeline-section">
+  <section class="timeline-section" id="timeline">
     <p class="section-label">Career Timeline</p>
-    <div class="timeline">
 
-      <div class="timeline-item">
-        <div class="timeline-year">2008 – 2018</div>
-        <div class="timeline-dot-col">
-          <div class="timeline-dot"></div>
+    <!-- Sticky horizontal chapter bar -->
+    <nav class="timeline-bar" aria-label="Career chapters">
+      <div class="timeline-bar-inner">
+        <span class="timeline-bar-heading">Career</span>
+        <ol class="timeline-bar-track">
+          <li><a href="#chapter-1"><span class="tbn-year">2008–18</span><span class="tbn-name">Print &amp; Brand</span></a></li>
+          <li><a href="#chapter-2"><span class="tbn-year">2019–21</span><span class="tbn-name">Brandcenter</span></a></li>
+          <li><a href="#chapter-3"><span class="tbn-year">2021–25</span><span class="tbn-name">Skillshare</span></a></li>
+          <li><a href="#chapter-4"><span class="tbn-year">2025–26</span><span class="tbn-name">Blaze AI</span></a></li>
+        </ol>
+      </div>
+    </nav>
+
+    <div class="timeline-chapters">
+
+      <article class="chapter" id="chapter-1">
+        <div class="chapter-visual">
+          <img class="chapter-img" src="assets/about/chapter1.jpg" alt="Selected print and brand work from a decade as an art director" />
         </div>
-        <div class="timeline-body">
-          <p class="timeline-era">Chapter One</p>
-          <h2 class="timeline-title">Art Director, Print & Brand</h2>
-          <div class="timeline-desc">
+        <div class="chapter-text">
+          <p class="chapter-era">Chapter One</p>
+          <h2 class="chapter-title">Art Director, Print &amp; Brand</h2>
+          <div class="chapter-desc">
             <p>Ten years designing for print annual reports, luxury invitations, event materials, brand systems. Work with weight and texture. I developed a deep instinct for <strong>how visual decisions shape the way people feel</strong> about what they're reading, holding, or attending.</p>
             <p>What print taught me: hierarchy, proportion, and craft aren't decorative choices they're how information communicates. That conviction carries into everything I do in digital.</p>
           </div>
-          <div style="margin-top:24px;width:100%;max-width:420px;height:220px;overflow:hidden;border-radius:2px;border:1px solid var(--rule);">
-            <img src="https://images.unsplash.com/photo-1572021335469-31706a17aaef?w=800&q=80&auto=format&fit=crop" alt="Agency creative work placeholder" style="width:100%;height:100%;object-fit:cover;opacity:0.85;filter:grayscale(15%);"/>
+        </div>
+      </article>
+
+      <article class="chapter reverse" id="chapter-2">
+        <div class="chapter-visual">
+          <img class="chapter-img" src="assets/about/chapter2.jpg" alt="Brandcenter era — pregnancy, the Warmly grad-school project, and early motherhood" />
+        </div>
+        <div class="chapter-text">
+          <p class="chapter-era">Chapter Two</p>
+          <h2 class="chapter-title">MFA, Experience Design — VCU Brandcenter</h2>
+          <div class="chapter-desc">
+            <p>After a decade of making things look right, I started asking whether the things I was making were actually working for the people using them. The more I explored UX, prototyping, and systems thinking, the clearer the decision became. I applied to graduate school.</p>
+            <p>I enrolled in VCU Brandcenter's intensive graduate program <strong>24 weeks pregnant</strong>. I became the first new mother in the program's history. In my second semester, COVID hit.</p>
+            <p>I finished anyway. What that period taught me about working under constraint, finding clarity in chaos, and moving forward without a map I use it every single day.</p>
           </div>
         </div>
-      </div>
+      </article>
 
-      <div class="timeline-item">
-        <div class="timeline-year">2019 – 2021</div>
-        <div class="timeline-dot-col">
-          <div class="timeline-dot active"></div>
+      <article class="chapter" id="chapter-3">
+        <div class="chapter-visual">
+          <img class="chapter-img" src="assets/about/chapter3.jpg" alt="Skillshare era — journey mapping, team, and conference moments" />
         </div>
-        <div class="timeline-body">
-          <p class="timeline-era">Chapter Two</p>
-          <h2 class="timeline-title">MFA, Experience Design VCU Brandcenter</h2>
-          <div class="timeline-split">
-            <div>
-              <div class="timeline-desc">
-                <p>After a decade of making things look right, I started asking whether the things I was making were actually working for the people using them. The more I explored UX, prototyping, and systems thinking, the clearer the decision became. I applied to graduate school.</p>
-                <p>I enrolled in VCU Brandcenter's intensive graduate program <strong>24 weeks pregnant</strong>. I became the first new mother in the program's history. In my second semester, COVID hit.</p>
-                <p>I finished anyway. What that period taught me about working under constraint, finding clarity in chaos, and moving forward without a map I use it every single day.</p>
-              </div>
-              <span class="timeline-note">"First new mom in the program's history. Second semester, COVID hit. Graduated anyway."</span>
-            </div>
-            <div class="timeline-figure">
-              <img src="assets/about/brandcenter_mom.png" alt="Brandcenter feature: Pregnancy, motherhood, and Brandcenter" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="timeline-item" id="skillshare">
-        <div class="timeline-year">2021 – 2025</div>
-        <div class="timeline-dot-col">
-          <div class="timeline-dot"></div>
-        </div>
-        <div class="timeline-body">
-          <p class="timeline-era">Chapter Three</p>
-          <h2 class="timeline-title">Senior Product Designer — <a href="https://www.skillshare.com" target="_blank" rel="noopener">Skillshare</a></h2>
-          <div class="timeline-desc">
+        <div class="chapter-text">
+          <p class="chapter-era">Chapter Three</p>
+          <h2 class="chapter-title">Senior Product Designer — <a href="https://www.skillshare.com" target="_blank" rel="noopener">Skillshare</a></h2>
+          <div class="chapter-desc">
             <p>Skillshare is where I grew up as a designer. I joined as an intern and worked my way to Senior Product Designer leading the pod — the kind of trajectory that only happens when the team around you is genuinely good.</p>
             <p>The collaboration was one of the best parts. I worked closely with people across product, engineering, design, legal, teacher support, customer support, and the brand studio. That breadth taught me how to communicate across very different contexts and still move work forward.</p>
             <p>The product itself was genuinely complex: a learning marketplace with subscription mechanics, an M&A integration, and the kind of interconnected systems where a change in one place ripples everywhere. I learned to love that kind of problem.</p>
             <p>Key work included the Certifications & Badges system that drove a <strong>+89% increase in project submissions</strong>, and the Creator Hub integration following the Superpeer acquisition.</p>
           </div>
         </div>
-      </div>
+      </article>
 
-      <div class="timeline-item" id="blaze">
-        <div class="timeline-year">2025 – 2026</div>
-        <div class="timeline-dot-col">
-          <div class="timeline-dot"></div>
+      <article class="chapter reverse" id="chapter-4">
+        <div class="chapter-visual">
+          <img class="chapter-img" src="assets/about/chapter4.jpg" alt="Blaze AI era — product work, the team, and the Blaze app icon" />
         </div>
-        <div class="timeline-body">
-          <p class="timeline-era">Chapter Four</p>
-          <h2 class="timeline-title">Senior Product Designer — <a href="https://www.blaze.ai" target="_blank" rel="noopener">Blaze AI</a></h2>
-          <div class="timeline-desc">
+        <div class="chapter-text">
+          <p class="chapter-era">Chapter Four</p>
+          <h2 class="chapter-title">Senior Product Designer — <a href="https://www.blaze.ai" target="_blank" rel="noopener">Blaze AI</a></h2>
+          <div class="chapter-desc">
             <p>Joined Blaze as the second designer at a Series A AI startup. I wanted to understand how a smaller team operates in a fast-moving AI environment, and to experiment with how design itself could work differently.</p>
             <p>I used AI across every stage of the design process, from early research to prototyping, gradually moving away from static files toward a more fluid, exploratory way of working. When I was curious about something, I dug in with AI, had direct conversations with the internal team who were the primary users of the enterprise product, and kept moving.</p>
             <p>Worked across growth projects including pricing tiers, freemium flows, and credits. Established the iOS design system. Led the enterprise approval workflow, a feature that had to hold together everything the company was simultaneously experimenting with.</p>
           </div>
         </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-year">Now</div>
-        <div class="timeline-dot-col">
-          <div class="timeline-dot active"></div>
-        </div>
-        <div class="timeline-body">
-          <p class="timeline-era">What's Next</p>
-          <h2 class="timeline-title">Looking for the right fit</h2>
-          <div class="timeline-desc">
-            <p>I'm looking for a team where design is treated as a <strong>strategic partner</strong>, not a delivery service. Where research is part of the process, the manager understands design, and the feedback culture is honest without being chaotic.</p>
-            <p>Open to full-time and fractional roles. Based in Richmond, VA available for EST-compatible remote work.</p>
-          </div>
-        </div>
-      </div>
+      </article>
 
     </div>
   </section>
@@ -569,37 +518,6 @@
     </div>
   </section>
 
-  <!-- FUN FACTS -->
-  <section class="facts-section">
-    <p class="facts-label">A few other things</p>
-    <div class="facts-grid">
-
-      <div class="fact-item">
-        <div class="fact-number">01</div>
-        <p class="fact-body">I started graduate school at VCU Brandcenter <strong>24 weeks pregnant</strong> and became the first new mother in the program's history. COVID arrived my second semester. I graduated anyway.</p>
-      </div>
-
-      <div class="fact-item">
-        <div class="fact-number">02</div>
-        <p class="fact-body">I collect <strong>recipe books</strong> the way some people collect records. Not to cook everything in them to understand how people think about food, culture, and process.</p>
-      </div>
-
-      <div class="fact-item">
-        <div class="fact-number">03</div>
-        <p class="fact-body">I <strong>vibe-code</strong>. I built a full summer camp finder app for Richmond families using Cursor, Supabase, and Vercel with no prior coding experience. Understanding how things are built makes me a better designer.</p>
-      </div>
-
-      <div class="fact-item">
-        <div class="fact-number">04</div>
-        <p class="fact-body">I cycle not for the exercise, but for the excuse to be outside with my family. My son is 6 and has already graduated to a <strong>mountain bike</strong>. Some of my best thinking happens on those rides, but honestly, watching him tear down a trail is the real point.</p>
-        <div style="margin-top:20px;width:100%;height:180px;overflow:hidden;border-radius:2px;">
-          <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=700&q=80&auto=format&fit=crop" alt="Family cycling placeholder" style="width:100%;height:100%;object-fit:cover;opacity:0.6;filter:grayscale(20%);"/>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
   <!-- CONTACT STRIP -->
   <section class="contact-strip">
     <div class="contact-strip-left">
@@ -616,6 +534,44 @@
     <span class="footer-name">Sharon Byun</span>
     <span class="footer-copy">© 2025 · Senior Product Designer</span>
   </footer>
+
+  <script>
+    // Highlight the chapter bar item for the chapter currently in view.
+    (function () {
+      var chapters = document.querySelectorAll('.chapter');
+      var links = document.querySelectorAll('.timeline-bar-track a');
+      if (!chapters.length || !links.length) return;
+
+      var linkFor = {};
+      links.forEach(function (l) {
+        linkFor[l.getAttribute('href').slice(1)] = l;
+      });
+
+      function setActive(id) {
+        links.forEach(function (l) { l.classList.remove('active'); });
+        var l = linkFor[id];
+        if (!l) return;
+        l.classList.add('active');
+        // Keep the active item centered within the bar — horizontal only,
+        // so this never scrolls the page vertically.
+        var bar = l.closest('.timeline-bar-inner');
+        if (bar && bar.scrollWidth > bar.clientWidth + 1) {
+          var lRect = l.getBoundingClientRect();
+          var bRect = bar.getBoundingClientRect();
+          var delta = (lRect.left + lRect.width / 2) - (bRect.left + bRect.width / 2);
+          bar.scrollBy({ left: delta, behavior: 'smooth' });
+        }
+      }
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+
+      chapters.forEach(function (c) { observer.observe(c); });
+    })();
+  </script>
 
 </body>
 </html>
