@@ -70,31 +70,39 @@
     }
     .nav-links a:hover { color: var(--ink); }
 
-    /* HERO PARTICLE */
+    /* HERO — scattered letters */
     .hero-scroll-wrap { width:100%; height:320vh; position:relative; }
     .hero-sticky {
       position:sticky; top:0; width:100%; height:100vh;
       background:var(--bg); overflow:hidden;
     }
-    canvas.particle-canvas { position:absolute; inset:0; width:100%; height:100%; z-index:2; }
     .hero-copy {
       position:absolute; inset:0;
       display:flex; flex-direction:column;
       align-items:center; justify-content:center;
       pointer-events:none; z-index:10;
+      padding:0 24px;
     }
     .hero-eyebrow {
       font-size:11px; font-weight:500;
       letter-spacing:0.1em; text-transform:uppercase;
       color:var(--muted);
       opacity:0; transition:opacity 0.8s;
-      text-align:center; margin-bottom:0;
+      text-align:center; margin-bottom:28px;
     }
-    /* Measured gap — JS reads this to know where to draw particles */
-    .hero-gap { height:32px; flex-shrink:0; }
-    /* Actual particle zone spacer — JS sets height dynamically */
-    .hero-particle-spacer { flex-shrink:0; }
-    .hero-gap-bottom { height:32px; flex-shrink:0; }
+    .hero-headline {
+      font-family:var(--serif);
+      font-weight:500;
+      font-size:clamp(38px, 8vw, 88px);
+      line-height:1.12;
+      letter-spacing:-0.02em;
+      color:var(--ink);
+      text-align:center;
+      margin:0 0 34px;
+      position:relative;
+    }
+    .hl-line { display:block; }
+    .hl-char { display:inline-block; will-change:transform, opacity; }
     .hero-bio {
       font-size:14px; font-weight:300;
       color:var(--muted); text-align:center;
@@ -473,13 +481,14 @@
   <!-- HERO PARTICLE -->
   <div class="hero-scroll-wrap" id="heroWrap">
     <div class="hero-sticky" id="heroSticky">
-      <canvas class="particle-canvas" id="phCanvas"></canvas>
 
       <div class="hero-copy" id="heroCopy">
         <p class="hero-eyebrow" id="heroEyebrow">Senior Product Designer · Richmond, VA</p>
-        <div class="hero-gap"></div>
-        <div class="hero-particle-spacer" id="heroSpacer"></div>
-        <div class="hero-gap-bottom"></div>
+        <h1 class="hero-headline" id="heroHeadline" aria-label="I make complex things feel inevitable.">
+          <span class="hl-line" data-text="I make complex"></span>
+          <span class="hl-line" data-text="things feel"></span>
+          <span class="hl-line" data-text="inevitable."></span>
+        </h1>
         <p class="hero-bio">Marketplace · Growth · Design Systems · Generative AI<br>Previously at <a href="https://www.blaze.ai" target="_blank" rel="noopener">Blaze AI</a> and <a href="https://www.skillshare.com" target="_blank" rel="noopener">Skillshare</a><br>Open to full-time & fractional roles · Remote</p>
         <div class="hero-cta">
           <a href="about.html" class="btn btn-secondary">About ↗</a>
@@ -593,133 +602,126 @@
       document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
     });
 
-    // PARTICLE HERO
+    // SCATTERED-LETTERS HERO
+    // Letters of the headline start scattered toward the viewport edges like
+    // puzzle pieces; scrolling assembles them into the legible headline.
     (function(){
       const wrap = document.getElementById('heroWrap');
-      const canvas = document.getElementById('phCanvas');
       const copy = document.getElementById('heroCopy');
+      const headline = document.getElementById('heroHeadline');
       const hint = document.getElementById('scrollHint');
-      const ctx = canvas.getContext('2d');
+      if(!wrap || !headline || !copy) return;
 
-      const BG = '#F0EDE8';
-      const NPARTICLES = 9000;
-      let W, H, particles, targets, ready = false, currentT = 0;
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const easeOut = t => 1 - Math.pow(1 - t, 3);
+      let spans = [], currentT = 0;
 
-      function resize() {
-        const dpr = window.devicePixelRatio || 1;
-        W = canvas.offsetWidth;
-        H = canvas.offsetHeight;
-        canvas.width = W * dpr;
-        canvas.height = H * dpr;
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        if(ready) { buildTargets(); initParticles(); renderFrame(); }
-      }
-
-      function sampleText(centerY) {
-        const dpr = window.devicePixelRatio || 1;
-        const off = document.createElement('canvas');
-        off.width = W * dpr; off.height = H * dpr;
-        const c = off.getContext('2d');
-        c.scale(dpr, dpr);
-        const lines = ['I make complex', 'things feel', 'inevitable.'];
-        const fs = Math.min(W * 0.085, 88);
-        c.font = `500 ${fs}px 'Space Grotesk', 'Inter', system-ui, sans-serif`;
-        c.fillStyle = '#000';
-        c.textAlign = 'center';
-        c.textBaseline = 'middle';
-        const lh = fs * 1.12;
-        const startY = centerY - lh;
-        lines.forEach((l, i) => c.fillText(l, W/2, startY + i*lh));
-        const data = c.getImageData(0, 0, off.width, off.height).data;
-        const pts = [];
-        for(let y = 0; y < off.height; y += 1) {
-          for(let x = 0; x < off.width; x += 1) {
-            if(data[(y*off.width+x)*4+3] > 60) pts.push({x: x/dpr, y: y/dpr});
-          }
-        }
-        return pts;
-      }
-
-      function getParticleCenter() {
-        const spacer = document.getElementById('heroSpacer');
-        const sticky = document.getElementById('heroSticky');
-        if(!spacer || !sticky) return H * 0.5;
-        const sRect = spacer.getBoundingClientRect();
-        const pRect = sticky.getBoundingClientRect();
-        return sRect.top - pRect.top + sRect.height / 2;
-      }
-
-      function buildTargets() {
-        const cy = getParticleCenter();
-        /* Set spacer height to match particle text block */
-        const fs = Math.min(W * 0.085, 88);
-        const textH = fs * 1.12 * 3;
-        document.getElementById('heroSpacer').style.height = textH + 'px';
-        const pts = sampleText(cy);
-        targets = Array.from({length: NPARTICLES}, () => {
-          const pt = pts[Math.floor(Math.random()*pts.length)];
-          return { x: pt.x + (Math.random()-0.5), y: pt.y + (Math.random()-0.5) };
+      // Build one <span> per character (spaces become non-breaking spaces).
+      function build(){
+        spans = [];
+        headline.querySelectorAll('.hl-line').forEach(line => {
+          const text = line.dataset.text || '';
+          line.textContent = '';
+          [...text].forEach(ch => {
+            const s = document.createElement('span');
+            s.className = 'hl-char';
+            s.textContent = ch === ' ' ? ' ' : ch;
+            line.appendChild(s);
+            spans.push({ el: s, space: ch === ' ' });
+          });
         });
       }
 
-      function initParticles() {
-        particles = Array.from({length: NPARTICLES}, () => {
-          const angle = Math.random()*Math.PI*2;
-          const dist = 100 + Math.random()*Math.max(W,H)*0.7;
+      // Measure natural letter positions, freeze the block, then assign each
+      // letter a scattered start point near a viewport edge.
+      function layout(){
+        headline.style.width = '';
+        headline.style.height = '';
+        spans.forEach(o => {
+          o.el.style.position = '';
+          o.el.style.left = '';
+          o.el.style.top = '';
+          o.el.style.transform = 'none';
+          o.el.style.opacity = '';
+        });
+
+        const hlRect = headline.getBoundingClientRect();
+        const vw = window.innerWidth, vh = window.innerHeight;
+        const cx = vw / 2, cy = vh / 2;
+
+        const measured = spans.map(o => {
+          const r = o.el.getBoundingClientRect();
           return {
-            x: W/2 + Math.cos(angle)*dist,
-            y: H/2 + Math.sin(angle)*dist,
-            r: Math.random()*1.1 + 0.3,
-            isMuted: Math.random() < 0.22,
-            speed: 0.7 + Math.random()*0.3,
-            delay: Math.random()*0.18
+            left: r.left - hlRect.left,
+            top: r.top - hlRect.top,
+            cxv: r.left + r.width / 2,
+            cyv: r.top + r.height / 2
           };
         });
-      }
 
-      function renderFrame() {
-        ctx.fillStyle = BG;
-        ctx.fillRect(0, 0, W, H);
-        const e = currentT < 0.5 ? 4*currentT*currentT*currentT : 1-Math.pow(-2*currentT+2,3)/2;
-        particles.forEach(p => {
-          const tgt = targets[particles.indexOf(p)];
-          const lt = Math.max(0, Math.min(1, (e-p.delay)/(1-p.delay)));
-          p.x += (tgt.x-p.x)*lt*p.speed*0.13;
-          p.y += (tgt.y-p.y)*lt*p.speed*0.13;
-          const alpha = 0.28 + lt*0.72;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-          ctx.fillStyle = p.isMuted
-            ? `rgba(140,128,117,${alpha})`
-            : `rgba(26,26,24,${alpha})`;
-          ctx.fill();
+        headline.style.width = hlRect.width + 'px';
+        headline.style.height = hlRect.height + 'px';
+
+        spans.forEach((o, i) => {
+          const m = measured[i];
+          o.el.style.position = 'absolute';
+          o.el.style.left = m.left + 'px';
+          o.el.style.top = m.top + 'px';
+          if(o.space){ o.dx = o.dy = o.rot = 0; o.scale = 1; o.delay = 0; return; }
+          const ang = Math.random() * Math.PI * 2;
+          const rx = vw * 0.5 * (0.85 + Math.random() * 0.4);
+          const ry = vh * 0.5 * (0.85 + Math.random() * 0.4);
+          let ex = cx + Math.cos(ang) * rx;
+          let ey = cy + Math.sin(ang) * ry;
+          ex = Math.max(28, Math.min(vw - 28, ex));
+          ey = Math.max(28, Math.min(vh - 28, ey));
+          o.dx = ex - m.cxv;
+          o.dy = ey - m.cyv;
+          o.rot = (Math.random() * 2 - 1) * 72;
+          o.scale = 0.7 + Math.random() * 0.5;
+          o.delay = Math.random() * 0.3;
         });
+
+        render();
       }
 
-      function drift() {
-        if(currentT < 0.04) {
-          particles.forEach(p => { p.x += (Math.random()-0.5)*0.4; p.y += (Math.random()-0.5)*0.4; });
-          renderFrame();
+      function render(){
+        const T = reduce ? 1 : currentT;
+        for(const o of spans){
+          if(o.space) continue;
+          const p = Math.max(0, Math.min(1, (T - o.delay) / (1 - o.delay)));
+          const te = easeOut(p);
+          const inv = 1 - te;
+          o.el.style.transform =
+            'translate(' + (o.dx * inv).toFixed(2) + 'px,' + (o.dy * inv).toFixed(2) + 'px) ' +
+            'rotate(' + (o.rot * inv).toFixed(2) + 'deg) ' +
+            'scale(' + (1 + (o.scale - 1) * inv).toFixed(3) + ')';
+          o.el.style.opacity = (0.55 + 0.45 * te).toFixed(3);
         }
-        requestAnimationFrame(drift);
       }
 
-      function onScroll() {
+      function onScroll(){
         const rect = wrap.getBoundingClientRect();
-        const scrollable = wrap.offsetHeight - H;
-        const raw = Math.max(0, Math.min(1, -rect.top/scrollable));
+        const scrollable = wrap.offsetHeight - window.innerHeight;
+        const raw = Math.max(0, Math.min(1, -rect.top / scrollable));
         currentT = raw;
-        hint.style.opacity = raw < 0.04 ? '1' : Math.max(0, 1-raw/0.12).toString();
+        if(hint) hint.style.opacity = raw < 0.04 ? '1' : Math.max(0, 1 - raw / 0.12).toString();
         copy.classList.toggle('visible', raw > 0.80);
-        renderFrame();
+        render();
       }
 
-      resize();
-      document.fonts.ready.then(() => {
-        buildTargets(); initParticles(); ready = true; renderFrame(); drift();
-      });
-      window.addEventListener('scroll', onScroll, {passive:true});
-      window.addEventListener('resize', () => { resize(); buildTargets(); initParticles(); renderFrame(); });
+      build();
+      const start = () => {
+        layout();
+        if(reduce){ copy.classList.add('visible'); if(hint) hint.style.opacity = '0'; }
+        onScroll();
+      };
+      if(document.fonts && document.fonts.ready){ document.fonts.ready.then(start); }
+      else { window.addEventListener('load', start); }
+
+      window.addEventListener('scroll', onScroll, { passive:true });
+      let rt;
+      window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(layout, 150); });
     })();
 
     
