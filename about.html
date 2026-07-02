@@ -54,7 +54,7 @@
       text-decoration: none;
       letter-spacing: -0.01em;
     }
-    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
     .nav-links a {
       font-size: 13px;
       font-weight: 500;
@@ -65,6 +65,16 @@
       transition: color 0.2s;
     }
     .nav-links a:hover, .nav-links a.active { color: var(--ink); }
+    .nav-links a.nav-cta {
+      color: var(--bg);
+      background: var(--ink);
+      padding: 9px 18px;
+      border-radius: 2px;
+      text-transform: none;
+      letter-spacing: 0.02em;
+      transition: background 0.2s;
+    }
+    .nav-links a.nav-cta:hover { color: var(--bg); background: var(--dark); }
 
     /* HERO */
     .about-hero {
@@ -384,7 +394,7 @@
     <ul class="nav-links">
       <li><a href="index.html#work">Work</a></li>
       <li><a href="about.html" class="active">About</a></li>
-      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="index.html#contact" class="nav-cta">Say Hello</a></li>
     </ul>
   </nav>
 

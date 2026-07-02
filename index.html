@@ -58,7 +58,7 @@
       text-decoration: none;
       letter-spacing: -0.01em;
     }
-    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
     .nav-links a {
       font-size: 13px;
       font-weight: 500;
@@ -69,6 +69,16 @@
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--ink); }
+    .nav-links a.nav-cta {
+      color: var(--bg);
+      background: var(--ink);
+      padding: 9px 18px;
+      border-radius: 2px;
+      text-transform: none;
+      letter-spacing: 0.02em;
+      transition: background 0.2s;
+    }
+    .nav-links a.nav-cta:hover { color: var(--bg); background: var(--dark); }
 
     /* HERO — scattered letters */
     .hero-scroll-wrap { width:100%; height:320vh; position:relative; }
@@ -474,7 +484,7 @@
     <ul class="nav-links">
       <li><a href="#work">Work</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#contact" class="nav-cta">Say Hello</a></li>
     </ul>
   </nav>
 
@@ -491,8 +501,7 @@
         </h1>
         <p class="hero-bio">Marketplace · Growth · Design Systems · Generative AI<br>Previously at <a href="https://www.blaze.ai" target="_blank" rel="noopener">Blaze AI</a> and <a href="https://www.skillshare.com" target="_blank" rel="noopener">Skillshare</a><br>Open to full-time & fractional roles · Remote</p>
         <div class="hero-cta">
-          <a href="about.html" class="btn btn-secondary">About ↗</a>
-          <a href="mailto:sharonbyun.design@gmail.com" class="btn btn-primary">Say hello</a>
+          <a href="#work" class="btn btn-primary">View Selected Work ↓</a>
         </div>
       </div>
 
@@ -585,7 +594,8 @@
     <p class="contact-label">Get in touch</p>
     <h2 class="contact-headline">Let's work on something <em>worth making.</em></h2>
     <div class="contact-links">
-      <a href="mailto:sharonbyun.design@gmail.com" class="btn btn-primary">sharonbyun.design@gmail.com</a>
+      <a href="mailto:sharonbyun.design@gmail.com" class="btn btn-primary">Email Me</a>
+      <a href="assets/shared/Sharon_Byun_Senior_Product_Designer_2026.pdf" download class="btn btn-secondary">Download Resume ↓</a>
       <a href="https://www.linkedin.com/in/sharonbyun/" target="_blank" class="btn btn-secondary">LinkedIn ↗</a>
     </div>
   </section>
