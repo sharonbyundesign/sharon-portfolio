@@ -136,7 +136,7 @@
 
     /* TIMELINE */
     .timeline-section {
-      padding: 100px 48px;
+      padding: 0 48px 100px;
       border-bottom: 1px solid var(--rule);
     }
     .section-label {
@@ -148,29 +148,29 @@
       margin-bottom: 64px;
     }
 
-    /* Sticky horizontal chapter bar */
+    /* Sticky horizontal chapter timeline — dots on a line, labels below */
     .timeline-bar {
+      display: block; /* override global nav{display:flex} so the inner fills width */
       position: sticky;
       top: 76px; /* tuck just under the 78px fixed nav, no visible gap */
       z-index: 50;
-      margin: 0 -48px 24px;
+      margin: 0 -48px;
       padding: 0 48px;
       background: var(--bg);
-      border-top: 1px solid var(--rule);
+      /* single top stroke comes from the hero's bottom border */
       border-bottom: 1px solid var(--rule);
     }
     .timeline-bar-inner {
       display: flex;
-      align-items: stretch;
-      gap: 24px;
-      height: 56px;
+      align-items: center;
+      gap: 44px;
+      padding: 16px 0;
       overflow-x: auto;
       scrollbar-width: none;
     }
     .timeline-bar-inner::-webkit-scrollbar { display: none; }
     .timeline-bar-heading {
       flex-shrink: 0;
-      align-self: center;
       font-size: 11px;
       font-weight: 500;
       letter-spacing: 0.12em;
@@ -178,28 +178,50 @@
       color: var(--muted);
     }
     .timeline-bar-track {
+      flex: 1;
       display: flex;
-      align-items: stretch;
       list-style: none;
-      gap: 2px;
+      position: relative;
+      min-width: 340px;
     }
-    .timeline-bar-track li { flex-shrink: 0; display: flex; }
+    /* the connecting line, spanning between the first and last dot */
+    .timeline-bar-track::before {
+      content: '';
+      position: absolute;
+      top: 4px;
+      left: 12.5%;
+      right: 12.5%;
+      height: 1px;
+      background: var(--rule);
+      z-index: 0;
+    }
+    .timeline-bar-track li { flex: 1; display: flex; }
     .timeline-bar-track a {
+      flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      gap: 1px;
-      padding: 0 16px;
+      align-items: center;
+      gap: 10px;
+      padding: 0 8px;
       text-decoration: none;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-      transition: background 0.2s, border-color 0.2s;
+      text-align: center;
       white-space: nowrap;
     }
-    .timeline-bar-track a:hover { background: #EAE6E0; }
+    .tbn-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--rule);
+      position: relative;
+      z-index: 1;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .tbn-label { display: flex; flex-direction: column; gap: 1px; }
     .tbn-year { font-size: 10px; letter-spacing: 0.04em; color: var(--muted); }
-    .tbn-name { font-size: 13px; font-weight: 500; color: var(--muted); }
-    .timeline-bar-track a.active { border-bottom-color: var(--ink); }
+    .tbn-name { font-size: 13px; font-weight: 500; color: var(--muted); transition: color 0.2s; }
+    .timeline-bar-track a:hover .tbn-dot { background: var(--muted); }
+    .timeline-bar-track a:hover .tbn-name { color: var(--ink); }
+    .timeline-bar-track a.active .tbn-dot { background: var(--ink); transform: scale(1.35); }
     .timeline-bar-track a.active .tbn-name { color: var(--ink); }
     .timeline-bar-track a.active .tbn-year { color: var(--ink); }
 
@@ -308,7 +330,7 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      border-top: 1px solid var(--rule);
+      /* top stroke comes from the principles section's bottom border */
     }
     .contact-strip-left {}
     .contact-strip-label {
@@ -368,8 +390,8 @@
       .about-hero-portrait { margin: 0 -24px 0 -24px; height: 60vh; }
       .about-hero-intro { margin-top: 28px; }
       .timeline-section { padding: 60px 24px; }
-      .timeline-bar { top: 60px; margin: 0 -24px 16px; padding: 0 24px; }
-      .timeline-bar-inner { height: 52px; gap: 16px; }
+      .timeline-bar { top: 60px; margin: 0 -24px; padding: 0 24px; }
+      .timeline-bar-inner { gap: 20px; padding: 14px 0; }
       .chapter { grid-template-columns: 1fr; gap: 28px; padding: 48px 0; scroll-margin-top: 120px; }
       .chapter:first-child { padding-top: 24px; }
       .chapter.reverse .chapter-visual,
@@ -420,17 +442,16 @@
 
   <!-- TIMELINE -->
   <section class="timeline-section" id="timeline">
-    <p class="section-label">Career Timeline</p>
 
-    <!-- Sticky horizontal chapter bar -->
-    <nav class="timeline-bar" aria-label="Career chapters">
+    <!-- Sticky horizontal chapter timeline -->
+    <nav class="timeline-bar" aria-label="Career timeline">
       <div class="timeline-bar-inner">
-        <span class="timeline-bar-heading">Career</span>
+        <span class="timeline-bar-heading">Career Timeline</span>
         <ol class="timeline-bar-track">
-          <li><a href="#chapter-1"><span class="tbn-year">2008–18</span><span class="tbn-name">Print &amp; Brand</span></a></li>
-          <li><a href="#chapter-2"><span class="tbn-year">2019–21</span><span class="tbn-name">Brandcenter</span></a></li>
-          <li><a href="#chapter-3"><span class="tbn-year">2021–25</span><span class="tbn-name">Skillshare</span></a></li>
-          <li><a href="#chapter-4"><span class="tbn-year">2025–26</span><span class="tbn-name">Blaze AI</span></a></li>
+          <li><a href="#chapter-1"><span class="tbn-dot"></span><span class="tbn-label"><span class="tbn-year">2008–18</span><span class="tbn-name">Print &amp; Brand</span></span></a></li>
+          <li><a href="#chapter-2"><span class="tbn-dot"></span><span class="tbn-label"><span class="tbn-year">2019–21</span><span class="tbn-name">Brandcenter</span></span></a></li>
+          <li><a href="#chapter-3"><span class="tbn-dot"></span><span class="tbn-label"><span class="tbn-year">2021–25</span><span class="tbn-name">Skillshare</span></span></a></li>
+          <li><a href="#chapter-4"><span class="tbn-dot"></span><span class="tbn-label"><span class="tbn-year">2025–26</span><span class="tbn-name">Blaze AI</span></span></a></li>
         </ol>
       </div>
     </nav>
@@ -532,9 +553,9 @@
       <h2 class="contact-strip-headline">Let's work on something <em>worth making.</em></h2>
     </div>
     <div class="contact-strip-links">
-      <a href="mailto:sharonbyun.design@gmail.com" class="btn btn-primary">Email Me</a>
-      <a href="assets/shared/Sharon_Byun_Senior_Product_Designer_2026.pdf" download class="btn btn-secondary">Download Resume ↓</a>
-      <a href="https://www.linkedin.com/in/sharonbyun/" target="_blank" class="btn btn-secondary">LinkedIn ↗</a>
+      <a href="mailto:sharonbyun.design@gmail.com" class="btn btn-primary">Email</a>
+      <a href="assets/shared/Sharon_Byun_Senior_Product_Designer_2026.pdf" download class="btn btn-secondary">Resume</a>
+      <a href="https://www.linkedin.com/in/sharonbyun/" target="_blank" class="btn btn-secondary">LinkedIn</a>
     </div>
   </section>
 
