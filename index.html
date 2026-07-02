@@ -129,12 +129,26 @@
       transition:color 0.2s, text-decoration-color 0.2s;
     }
     .hero-bio a:hover { color:var(--ink); text-decoration-color:var(--ink); }
+    .hero-tags {
+      display:flex; flex-wrap:wrap; justify-content:center;
+      gap:8px; margin-bottom:20px;
+      opacity:0; transition:opacity 0.8s 0.05s;
+    }
+    .hero-tags span {
+      font-size:11px; font-weight:500;
+      letter-spacing:0.06em; text-transform:uppercase;
+      color:var(--muted);
+      border:1px solid var(--rule);
+      border-radius:2px;
+      padding:6px 12px;
+    }
     .hero-cta {
       display:flex; gap:12px;
       opacity:0; transition:opacity 0.8s 0.2s;
       pointer-events:none;
     }
     .hero-copy.visible .hero-eyebrow,
+    .hero-copy.visible .hero-tags,
     .hero-copy.visible .hero-bio,
     .hero-copy.visible .hero-cta { opacity:1; }
     .hero-copy.visible .hero-cta { pointer-events:all; }
@@ -499,7 +513,13 @@
           <span class="hl-line" data-text="things feel"></span>
           <span class="hl-line" data-text="inevitable."></span>
         </h1>
-        <p class="hero-bio">Marketplace · Growth · Design Systems · Generative AI<br>Previously at <a href="https://www.blaze.ai" target="_blank" rel="noopener">Blaze AI</a> and <a href="https://www.skillshare.com" target="_blank" rel="noopener">Skillshare</a><br>Open to full-time & fractional roles · Remote</p>
+        <div class="hero-tags">
+          <span>Marketplace</span>
+          <span>Growth</span>
+          <span>Design Systems</span>
+          <span>AI Native Product</span>
+        </div>
+        <p class="hero-bio">Previously at <a href="https://www.blaze.ai" target="_blank" rel="noopener">Blaze AI</a> and <a href="https://www.skillshare.com" target="_blank" rel="noopener">Skillshare</a><br>Open to full-time & fractional roles · Remote</p>
         <div class="hero-cta">
           <a href="#work" class="btn btn-primary">View Selected Work ↓</a>
         </div>
