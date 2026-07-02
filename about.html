@@ -150,13 +150,14 @@
 
     /* Sticky horizontal chapter timeline — dots on a line, labels below */
     .timeline-bar {
+      display: block; /* override global nav{display:flex} so the inner fills width */
       position: sticky;
       top: 76px; /* tuck just under the 78px fixed nav, no visible gap */
       z-index: 50;
       margin: 0 -48px;
       padding: 0 48px;
       background: var(--bg);
-      border-top: 1px solid var(--rule);
+      /* single top stroke comes from the hero's bottom border */
       border-bottom: 1px solid var(--rule);
     }
     .timeline-bar-inner {
